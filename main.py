@@ -42,7 +42,22 @@ def edge_contract_seq(vertices, edges):
     new_vertices = set()
     for e in edges:
         ### TODO: complete
-        pass
+        u, v = e
+        if u not in selected_vertices and v not in selected_vertices:
+            selected_vertices.add(u)
+            selected_vertices.add(v)
+
+            super_vertex = e[1]
+            new_vertices.add(super_vertex)
+
+            vertex_map[u] = super_vertex
+            vertex_map[v] = super_vertex
+    
+    for v in vertices:
+        if v not in selected_vertices:
+            vertex_map[v] = v
+            new_vertices.add(v)
+      
     return new_vertices, vertex_map
 
 def edge_contract_seq_sizes(vertices, edges, sizes):
@@ -59,8 +74,25 @@ def edge_contract_seq_sizes(vertices, edges, sizes):
     new_vertices = set()
     for e in edges:
         ### TODO: complete
-        pass
-        
+        u, v = e
+        if u not in selected_vertices and v not in selected_vertices:
+            selected_vertices.add(u)
+            selected_vertices.add(v)
+
+            super_vertex = e[1]
+            new_vertices.add(super_vertex)
+
+            vertex_map[u] = super_vertex
+            vertex_map[v] = super_vertex
+
+            sizes[super_vertex] += sizes[u]
+            sizes[u] = 1
+    
+    for v in vertices:
+        if v not in selected_vertices:
+            vertex_map[v] = v
+            new_vertices.add(v)
+            
     return new_vertices, vertex_map, sizes
 
 def component_sizes(vertices, edges, partition_graph_f, sizes):
